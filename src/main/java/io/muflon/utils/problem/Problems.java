@@ -3,6 +3,7 @@ package io.muflon.utils.problem;
 import jakarta.validation.ConstraintViolation;
 import org.springframework.http.HttpStatus;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -53,12 +54,13 @@ public class Problems {
 		);
 	}
 
-	public static Problem internalServerError() {
+	public static Problem internalServerError(Exception exception) {
 		return new Problem(
 			HttpStatus.INTERNAL_SERVER_ERROR,
 			"Internal Server Error",
 			"Unexpected error occurred. Please try again in a while.",
-			null
+			null,
+			Arrays.stream(exception.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.joining("\n"))
 		);
 	}
 }

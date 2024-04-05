@@ -11,11 +11,16 @@ public record Problem(
 	int status,
 	String error,
 	String details,
-	Set<Violation> violations
+	Set<Violation> violations,
+	String stackTrace
 ) {
 
 	public Problem(HttpStatus status, String error, String details, Set<Violation> violations) {
-		this(status.value(), error, details, violations);
+		this(status.value(), error, details, violations, "");
+	}
+
+	public Problem(HttpStatus status, String error, String details, Set<Violation> violations, String stackTrace) {
+		this(status.value(), error, details, violations, stackTrace);
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)

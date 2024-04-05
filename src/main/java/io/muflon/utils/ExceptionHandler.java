@@ -48,7 +48,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@org.springframework.web.bind.annotation.ExceptionHandler({Exception.class})
 	public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
-		return ResponseEntity.internalServerError().body(Problems.internalServerError());
+		logger.error(ex);
+		return ResponseEntity.internalServerError().body(Problems.internalServerError(ex));
 	}
 
 }
